@@ -47,7 +47,8 @@ jobs:
 
 ### Why `on: release`?
 
-We recommend triggering this action when you **publish a GitHub Release**, not on every push. This mirrors how most container images get published, keeps your registry from filling up with a new ModelKit on every commit, and lets the release tag map directly onto the ModelKit tag. `workflow_dispatch` is included so you can also trigger a publish manually.
+We recommend triggering this action when you **publish a GitHub Release**, not on every push. This mirrors how most container images get published, keeps your registry from filling up with a new ModelKit on every commit, and lets the release tag map directly onto the ModelKit tag.
+`workflow_dispatch` also is included so you can also trigger a publish manually.
 
 If your AI/ML project needs a different trigger (e.g. every merge to `main`), you can change the `on:` block accordingly.
 

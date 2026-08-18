@@ -1,0 +1,51 @@
+name: 'KitOps Pack & Push'
+description: 'Packs a ModelKit from a Kitfile and pushes it to a registry (e.g. Jozu Hub)'
+author: 'kitops.ml'
+
+# Add your action's branding here. This will appear on the GitHub Marketplace.
+branding:
+  icon: 'terminal'
+  color: 'green'
+
+inputs:
+  registry:
+    description: 'Registry hostname, e.g. jozu.ml'
+    required: true
+    default: 'jozu.ml'
+  repository:
+    description: 'Target repo path, e.g. your-namespace/repo-name'
+    required: true
+  tag:
+    description: 'Tag for the ModelKit, e.g. latest or a version'
+    required: false
+    default: 'latest'
+  username:
+    description: 'Registry username'
+    required: true
+  password:
+    description: 'Registry password or token'
+    required: true
+  kit-version:
+    description: 'Kit CLI version to install'
+    required: false
+    default: 'latest'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Kit CLI
+      uses: jozu-ai/gh-kit-setup@v1.0.0
+      with:
+        version: ${{ inputs.kit-version }}
+
+    - name: Log in to registry
+      shell: bash
+      run: kit login ${{ inputs.registry }} --username ${{ inputs.username }} --password ${{ inputs.password }}
+
+    - name: Pack ModelKit
+      shell: bash
+      run: kit pack . -t ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}
+
+    - name: Push ModelKit
+      shell: bash
+      run: kit push ${{ inputs.registry }}/${{ inputs.repository }}:${{ inputs.tag }}

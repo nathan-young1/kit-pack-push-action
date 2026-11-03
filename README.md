@@ -1,5 +1,7 @@
 # KitOps Pack & Push
 
+[![Packaged with KitOps](https://img.shields.io/badge/Packaged%20with-KitOps-FFAF52?labelColor=363636)](https://kitops.org)
+
 A GitHub Action that packs a [ModelKit](https://kitops.org/docs/modelkit/intro/) from your repo's `Kitfile` using the [Kit CLI](https://github.com/kitops-ml/kitops) and pushes it to a registry like [Jozu Hub](https://jozu.ml) or any other OCI compliant registry.
 
 Use this to publish a versioned, portable package of your model, dataset, code, and config as part of your CI/CD pipeline.
